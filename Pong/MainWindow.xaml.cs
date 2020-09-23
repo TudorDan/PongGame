@@ -6,6 +6,7 @@ using System.Windows.Media;
 using WPFCustomMessageBox;
 using System.Windows.Shapes;
 using System.Windows.Media.Imaging;
+using System.Runtime.InteropServices;
 
 namespace Pong
 {
@@ -14,43 +15,15 @@ namespace Pong
     /// </summary>
     public partial class MainWindow : Window
     {
-        const int PaddleWidth = 150;
-        const int PaddleHeight = 30;
-        public class Paddle
-        {
-            private static Paddle instance = null;
-            public Point position { get; set; }
-
-            private Paddle() { }
-            public static Paddle getInstance()
-            {
-                if (instance == null)
-                {
-                    instance = new Paddle();
-                }
-                return instance;
-            }
-
-            public void Draw(Canvas canvas)
-            {
-                Rectangle rect = new Rectangle
-                {
-                    Width = PaddleWidth,
-                    Height = PaddleHeight,
-                    Fill = new ImageBrush
-                    {
-                        ImageSource = new BitmapImage(new Uri(@"C:\Users\antoaneta\Downloads\CodeCool\advancedCSharp\1st_TW\c-sharp-pingpong-fireuponthedepth\Pong\paddle.png", UriKind.Absolute))
-                    }
-            };
-                canvas.Children.Add(rect);
-                Canvas.SetTop(rect, 380);
-                Canvas.SetLeft(rect, 307);
-            }
-        }
+        public Paddle GamePaddle { get; set; }
+        public Ball PingPongBall { get; }
 
         public MainWindow()
         {
             InitializeComponent();
+
+            GamePaddle = Paddle.getInstance();
+            PingPongBall = Ball.getInstance();
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -68,8 +41,27 @@ namespace Pong
         private void playground_ContentRendered(object sender, EventArgs e)
         {
             Background = new SolidColorBrush(Colors.Gray);
-            Paddle paddle = Paddle.getInstance();
-            paddle.Draw(GameArea);
+
+            
+            GamePaddle.Draw(GameArea);
+            PingPongBall.Draw(GameArea);
+        }
+
+        private void playground_KeyUp(object sender, KeyEventArgs e)
+        {
+            switch(e.Key)
+            {
+                case Key.Left:
+                    GamePaddle.Direction = PaddleDirection.Left;
+                    GamePaddle.Move();
+                    GamePaddle.Draw(GameArea);
+                    break;
+                case Key.Right:
+                    GamePaddle.Direction = PaddleDirection.Right;
+                    GamePaddle.Move();
+                    GamePaddle.Draw(GameArea);
+                    break;
+            }
         }
 
 
