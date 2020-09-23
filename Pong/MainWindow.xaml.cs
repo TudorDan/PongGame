@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using WPFCustomMessageBox;
+using System.Windows.Shapes;
+using System.Windows.Media.Imaging;
 
 namespace Pong
 {
@@ -21,6 +14,40 @@ namespace Pong
     /// </summary>
     public partial class MainWindow : Window
     {
+        const int PaddleWidth = 150;
+        const int PaddleHeight = 30;
+        public class Paddle
+        {
+            private static Paddle instance = null;
+            public Point position { get; set; }
+
+            private Paddle() { }
+            public static Paddle getInstance()
+            {
+                if (instance == null)
+                {
+                    instance = new Paddle();
+                }
+                return instance;
+            }
+
+            public void Draw(Canvas canvas)
+            {
+                Rectangle rect = new Rectangle
+                {
+                    Width = PaddleWidth,
+                    Height = PaddleHeight,
+                    Fill = new ImageBrush
+                    {
+                        ImageSource = new BitmapImage(new Uri(@"C:\Users\antoaneta\Downloads\CodeCool\advancedCSharp\1st_TW\c-sharp-pingpong-fireuponthedepth\Pong\paddle.png", UriKind.Absolute))
+                    }
+            };
+                canvas.Children.Add(rect);
+                Canvas.SetTop(rect, 380);
+                Canvas.SetLeft(rect, 307);
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -37,5 +64,19 @@ namespace Pong
                 }
             }
         }
+
+        private void playground_ContentRendered(object sender, EventArgs e)
+        {
+            Background = new SolidColorBrush(Colors.Gray);
+            Paddle paddle = Paddle.getInstance();
+            paddle.Draw(GameArea);
+        }
+
+
+        //private void playground_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    DispatcherTimer dispatcherTimer = new DispatcherTimer();
+        //    dispatcherTimer.IsEnabled = true;
+        //}
     }
 }
