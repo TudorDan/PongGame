@@ -7,6 +7,7 @@ using WPFCustomMessageBox;
 using System.Windows.Shapes;
 using System.Windows.Media.Imaging;
 using System.Runtime.InteropServices;
+using System.Windows.Threading;
 
 namespace Pong
 {
@@ -17,6 +18,7 @@ namespace Pong
     {
         public Paddle GamePaddle { get; set; }
         public Ball PingPongBall { get; }
+        private DispatcherTimer gameTicker = new DispatcherTimer();
 
         public MainWindow()
         {
@@ -24,6 +26,14 @@ namespace Pong
 
             GamePaddle = Paddle.getInstance();
             PingPongBall = Ball.getInstance();
+
+            gameTicker.Tick += GameTicker_Tick;
+        }
+
+        private void GameTicker_Tick(object sender, EventArgs e)
+        {
+            PingPongBall.Move();
+            PingPongBall.Draw(GameArea);
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -45,6 +55,15 @@ namespace Pong
             
             GamePaddle.Draw(GameArea);
             PingPongBall.Draw(GameArea);
+
+            // Start GAME
+            StartNewGame();
+        }
+        
+        public void StartNewGame()
+        {
+            gameTicker.Interval = TimeSpan.FromMilliseconds(400);
+            gameTicker.IsEnabled = true;
         }
 
         private void playground_KeyUp(object sender, KeyEventArgs e)

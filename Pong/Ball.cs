@@ -29,10 +29,17 @@ namespace Pong
 
         public void Draw(Canvas canvas)
         {
+            var previusBallImage = canvas.Children?.OfType<Rectangle>()?.Any(c => c.Name == "ball");
+            if (previusBallImage.Value)
+            {
+                var foundPreviousImage = canvas.Children.OfType<Rectangle>().Single(c => c.Name == "ball");
+                canvas.Children.Remove(foundPreviousImage);
+            }
             Rectangle rect = new Rectangle
             {
                 Width = Size,
                 Height = Size,
+                Name = "ball",
                 Fill = new ImageBrush
                 {
                     ImageSource = new BitmapImage(new Uri(@"C:\Users\antoaneta\Downloads\CodeCool\advancedCSharp\1st_TW\c-sharp-pingpong-fireuponthedepth\Pong\ball.png", UriKind.Absolute))
@@ -41,6 +48,13 @@ namespace Pong
             canvas.Children.Add(rect);
             Canvas.SetTop(rect, Position.X);
             Canvas.SetLeft(rect, Position.Y);
+        }
+
+        public void Move()
+        {
+            double nextX = Position.X;
+            double nextY = Position.Y;
+            Position = new Point(nextX += 10, nextY += 10);
         }
     }
 }
