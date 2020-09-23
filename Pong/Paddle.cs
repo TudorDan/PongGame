@@ -15,18 +15,23 @@ namespace Pong
     public class Paddle
     {
         private static Paddle instance = null;
-        private static Point Position = new Point(380, 307);
-        private int Width { get; } = 150;
-        private int Height { get; } = 30;
+        public Point Position { get; set; }
+        public double Width { get; } = 150;
+        private double Height { get; } = 30;
         public PaddleDirection Direction { get; set; }
 
 
-        private Paddle() { }
-        public static Paddle getInstance()
+        private Paddle(Canvas canvas) 
+        {
+            double paddleX = (canvas.ActualWidth / 2) - (Width / 2);
+            double paddleY = canvas.ActualHeight - 10 - Height;
+            Position = new Point(paddleX, paddleY);
+        }
+        public static Paddle getInstance(Canvas canvas)
         {
             if (instance == null)
             {
-                instance = new Paddle();
+                instance = new Paddle(canvas);
             }
             return instance;
         }
@@ -50,20 +55,21 @@ namespace Pong
                 }
             };
             canvas.Children.Add(rect);
-            Canvas.SetTop(rect, Position.X);
-            Canvas.SetLeft(rect, Position.Y);
+            Canvas.SetTop(rect, Position.Y);
+            Canvas.SetLeft(rect, Position.X);
         }
 
-        public void Move()
+        public void Move(Canvas canvas)
         {
-            double nextY = Position.Y;
+            double nextX = Position.X;
+            double canvasY = canvas.ActualHeight;
             switch (Direction)
             {
                 case PaddleDirection.Left:
-                    Position = new Point(380, nextY -= 10);
+                    Position = new Point(nextX -= 10, canvasY - 10 - Height);
                     break;
                 case PaddleDirection.Right:
-                    Position = new Point(380, nextY += 10);
+                    Position = new Point(nextX += 10, canvasY - 10 - Height);
                     break;
             }
         }

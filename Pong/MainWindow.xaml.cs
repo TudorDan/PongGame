@@ -24,7 +24,7 @@ namespace Pong
         {
             InitializeComponent();
 
-            GamePaddle = Paddle.getInstance();
+            GamePaddle = Paddle.getInstance(GameArea);
             PingPongBall = Ball.getInstance();
 
             gameTicker.Tick += GameTicker_Tick;
@@ -34,17 +34,30 @@ namespace Pong
         {
             PingPongBall.Move();
             PingPongBall.Draw(GameArea);
+            PingPongBall.DetectCollision(GameArea, GamePaddle);
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Escape)
+            switch (e.Key)
             {
-                MessageBoxResult response = CustomMessageBox.ShowOKCancel("Are you sure to quit from the best game ever?", "Close confirmation", "Yes", "HellNO");
-                if (response == MessageBoxResult.OK)
-                {
-                    this.Close();
-                }
+                case Key.Left:
+                    GamePaddle.Direction = PaddleDirection.Left;
+                    GamePaddle.Move(GameArea);
+                    GamePaddle.Draw(GameArea);
+                    break;
+                case Key.Right:
+                    GamePaddle.Direction = PaddleDirection.Right;
+                    GamePaddle.Move(GameArea);
+                    GamePaddle.Draw(GameArea);
+                    break;
+                case Key.Escape:
+                    MessageBoxResult response = CustomMessageBox.ShowOKCancel("Are you sure to quit from the best game ever?", "Close confirmation", "Yes", "HellNO");
+                    if (response == MessageBoxResult.OK)
+                    {
+                        this.Close();
+                    }
+                    break;
             }
         }
 
@@ -62,28 +75,11 @@ namespace Pong
         
         public void StartNewGame()
         {
-            gameTicker.Interval = TimeSpan.FromMilliseconds(400);
+            gameTicker.Interval = TimeSpan.FromMilliseconds(30);
             gameTicker.IsEnabled = true;
         }
 
-        private void playground_KeyUp(object sender, KeyEventArgs e)
-        {
-            switch(e.Key)
-            {
-                case Key.Left:
-                    GamePaddle.Direction = PaddleDirection.Left;
-                    GamePaddle.Move();
-                    GamePaddle.Draw(GameArea);
-                    break;
-                case Key.Right:
-                    GamePaddle.Direction = PaddleDirection.Right;
-                    GamePaddle.Move();
-                    GamePaddle.Draw(GameArea);
-                    break;
-            }
-        }
-
-
+        
         //private void playground_Loaded(object sender, RoutedEventArgs e)
         //{
         //    DispatcherTimer dispatcherTimer = new DispatcherTimer();
