@@ -56,9 +56,13 @@ namespace Pong
                 && GamePaddle.Position.Y <= Position.Y + Size)
             {
                 offSet = Position.Y + Size + speedY;
-                if(offSet > GamePaddle.Position.Y)
+                if (offSet > GamePaddle.Position.Y)
                 {
                     offSet = offSet - GamePaddle.Position.Y + 1;
+                }
+                else
+                {
+                    offSet = 0;
                 }
             }
             double nextX = Position.X;

@@ -24,6 +24,8 @@ namespace Pong
         private static int currentScore = 0;
         private const int maxScore = 21;
         private static int lives = 3;
+        public Gift Gem { get; set; }
+        private DispatcherTimer gemTicker = new DispatcherTimer();
 
         public MainWindow()
         {
@@ -96,6 +98,30 @@ namespace Pong
 
             gameTicker.Interval = TimeSpan.FromMilliseconds(30);
             gameTicker.IsEnabled = true;
+
+            // add gem every 1 to 9 seconds
+            //Timer gemTimer = new Timer();
+            //gemTimer.Elapsed += new ElapsedEventHandler(DisplayGem);
+            //gemTimer.Interval = rnd.NextDouble() * 10000; // 1000 ms is one second
+            //gemTimer.Start();
+           
+        }
+
+        public void DisplayGem(object sender, ElapsedEventArgs e)
+        {
+            Gem = new Gift(GameArea);
+            Gem.Draw(GameArea);
+            Gem.Move();
+            ProcessGemCollisions();
+        }
+
+        private void ProcessGemCollisions()
+        {
+            //bottom
+            if (Gem.Position.Y > GameArea.ActualHeight)
+            {
+                Gem = null;
+            }
         }
 
         public void DetectCollision()
