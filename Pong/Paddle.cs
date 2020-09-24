@@ -14,6 +14,7 @@ namespace Pong
     public enum PaddleDirection { Left, Right };
     public class Paddle
     {
+        public static double paddleSpeed = 15;
         private static Paddle instance = null;
         public Point Position { get; set; }
         public double Width { get; } = 150;
@@ -66,10 +67,10 @@ namespace Pong
             switch (Direction)
             {
                 case PaddleDirection.Left:
-                    Position = new Point(nextX -= 10, canvasY - 10 - Height);
+                    Position = new Point(nextX -= paddleSpeed, canvasY - paddleSpeed - Height);
                     break;
                 case PaddleDirection.Right:
-                    Position = new Point(nextX += 10, canvasY - 10 - Height);
+                    Position = new Point(nextX += paddleSpeed, canvasY - paddleSpeed - Height);
                     break;
             }
         }

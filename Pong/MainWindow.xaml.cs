@@ -83,12 +83,16 @@ namespace Pong
             GamePaddle.Draw(GameArea);
             PingPongBall.Draw(GameArea);
 
-            // Start GAME
-            StartNewGame();
+            bdrWelcomePanel.Visibility = Visibility.Visible;
         }
-        
-        public void StartNewGame()
+
+        public void StartNewGame(double ballSpeedX, double ballSpeedY)
         {
+            bdrWelcomePanel.Visibility = Visibility.Collapsed;
+
+            PingPongBall.speedX = ballSpeedX;
+            PingPongBall.speedY = ballSpeedY;
+
             gameTicker.Interval = TimeSpan.FromMilliseconds(30);
             gameTicker.IsEnabled = true;
         }
@@ -122,8 +126,8 @@ namespace Pong
                 double y = rnd.NextDouble() * (GameArea.ActualHeight / 2);
                 PingPongBall.Position = new Point(x, y);
 
-                PingPongBall.speedX = rnd.NextDouble() * 5 + 1;
-                PingPongBall.speedY = rnd.NextDouble() * 5 + 1;
+                //PingPongBall.speedX = rnd.NextDouble() * 5 + 1;
+                //PingPongBall.speedY = rnd.NextDouble() * 5 + 1;
 
                 lives--;
                 this.tbStatusLives.Text = lives.ToString();
@@ -152,6 +156,24 @@ namespace Pong
         private void UpdateGameStatus()
         {
             this.tbStatusScore.Text = currentScore.ToString();
+        }
+
+        private void basic_Click(object sender, RoutedEventArgs e)
+        {
+            // Start GAME
+            StartNewGame(5, -5);
+        }
+
+        private void intermediate_Click(object sender, RoutedEventArgs e)
+        {
+            // Start GAME
+            StartNewGame(7, -7);
+        }
+
+        private void hard_Click(object sender, RoutedEventArgs e)
+        {
+            // Start GAME
+            StartNewGame(10, -10);
         }
     }
 }
