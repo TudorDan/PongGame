@@ -28,8 +28,8 @@
                 <TextBlock Name="tbStatusScore">0</TextBlock>
             </WrapPanel>
             <WrapPanel Grid.Column="1">
-                <TextBlock>Speed:</TextBlock>
-                <TextBlock Name="tbStatusSpeed">0</TextBlock>
+                <TextBlock>Level:</TextBlock>
+                <TextBlock Name="tbStatusLevel">0</TextBlock>
             </WrapPanel>
         </Grid>
     </Canvas>

@@ -19,6 +19,8 @@ namespace Pong
         public Paddle GamePaddle { get; set; }
         public Ball PingPongBall { get; }
         private DispatcherTimer gameTicker = new DispatcherTimer();
+        private Random rnd = new Random();
+        private static int currentScore = 0;
 
         public MainWindow()
         {
@@ -34,7 +36,7 @@ namespace Pong
         {
             PingPongBall.Move();
             PingPongBall.Draw(GameArea);
-            PingPongBall.DetectCollision(GameArea, GamePaddle);
+            DetectCollision();
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -56,6 +58,14 @@ namespace Pong
                     if (response == MessageBoxResult.OK)
                     {
                         this.Close();
+                    }
+                    break;
+                case Key.Space:
+                    gameTicker.IsEnabled = false;
+                    MessageBoxResult responseSpace = MessageBox.Show("Press OK to continue", "GAME PAUSED");
+                    if (responseSpace == MessageBoxResult.OK)
+                    {
+                        gameTicker.IsEnabled = true;
                     }
                     break;
             }
@@ -82,6 +92,56 @@ namespace Pong
             gameTicker.IsEnabled = true;
         }
 
- 
+        public void DetectCollision()
+        {
+            // left or right
+            if (PingPongBall.Position.X <= 0 || PingPongBall.Position.X + PingPongBall.Size >= GameArea.ActualWidth)
+            {
+                PingPongBall.speedX = -PingPongBall.speedX;
+            }
+            //top
+            if (PingPongBall.Position.Y <= 0)
+            {
+                PingPongBall.speedY = -PingPongBall.speedY;
+            }
+            // paddle
+            if (GamePaddle.Position.X <= PingPongBall.Position.X && PingPongBall.Position.X <= GamePaddle.Position.X + GamePaddle.Width
+                && GamePaddle.Position.Y <= PingPongBall.Position.Y + PingPongBall.Size)
+            {
+                PingPongBall.speedY = -PingPongBall.speedY;
+
+                // update score
+                currentScore++;
+                UpdateGameStatus();
+            }
+            // bottom 
+            if (PingPongBall.Position.Y > GameArea.ActualHeight)
+            {
+                double x = rnd.NextDouble() * (GameArea.ActualWidth - PingPongBall.Size);
+                double y = rnd.NextDouble() * (GameArea.ActualHeight / 2);
+                PingPongBall.Position = new Point(x, y);
+
+                PingPongBall.speedX = rnd.NextDouble() * 5 + 1;
+                PingPongBall.speedY = rnd.NextDouble() * 5 + 1; 
+            }
+
+            // check end game
+            EndGame();
+        }
+
+        private void EndGame()
+        {
+            if (currentScore >= 5)
+            {
+                gameTicker.IsEnabled = false;
+                MessageBoxResult responseEnd = MessageBox.Show($"Congratulations! Your you reached {currentScore} points!", "GAME FINISHED!!");
+                this.Close();
+            } 
+        }
+
+        private void UpdateGameStatus()
+        {
+            this.tbStatusScore.Text = currentScore.ToString();
+        }
     }
 }
