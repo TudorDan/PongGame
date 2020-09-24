@@ -35,15 +35,19 @@
                 <TextBlock>Lives:</TextBlock>
                 <TextBlock Name="tbStatusLives">3</TextBlock>
             </WrapPanel>
+
             <WrapPanel Grid.Column="3">
-                <StackPanel Name="bdrWelcomePanel" Margin="250,250,0,0">
+                <StackPanel Name="bdrWelcomePanel" Margin="200,250,0,0">
                     <Label FontWeight="Bold" FontSize="24" FontFamily="Algerian">Check Game difficulty:</Label>
                     <RadioButton x:Name="basic" IsChecked="True" Click="basic_Click" FontSize="24" FontFamily="Algerian">Basic</RadioButton>
                     <RadioButton x:Name="intermediate" Click="intermediate_Click" FontSize="24" FontFamily="Algerian">Intermediate</RadioButton>
                     <RadioButton x:Name="hard" Click="hard_Click" FontSize="24" FontFamily="Algerian">Hard</RadioButton>
                 </StackPanel>
             </WrapPanel>
-            
+            <Grid Grid.Column="4" Margin="200,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="235">
+                <ProgressBar Minimum="0" Maximum="100" Value="0" Name="pbStatus" Width="230" Height="25" />
+                <TextBlock Text="{Binding ElementName=pbStatus, Path=Value, StringFormat={}{0:0}%}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Grid>
         </Grid>
     </Canvas>
 

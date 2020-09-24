@@ -22,6 +22,7 @@ namespace Pong
         private DispatcherTimer gameTicker = new DispatcherTimer();
         private Random rnd = new Random();
         private static int currentScore = 0;
+        private const int maxScore = 21;
         private static int lives = 3;
 
         public MainWindow()
@@ -163,7 +164,7 @@ namespace Pong
 
         private void EndGame()
         {
-            if (currentScore >= 11)
+            if (currentScore >= maxScore)
             {
                 gameTicker.IsEnabled = false;
                 MessageBoxResult responseEnd = MessageBox.Show($"Congratulations! Your you reached {currentScore} points!", "GAME FINISHED!!");
@@ -180,6 +181,7 @@ namespace Pong
         private void UpdateGameStatus()
         {
             this.tbStatusScore.Text = currentScore.ToString();
+            this.pbStatus.Value = (currentScore * 100) / maxScore;
         }
 
         private void basic_Click(object sender, RoutedEventArgs e)
