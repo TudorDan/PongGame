@@ -37,7 +37,7 @@ namespace Pong
 
         private void GameTicker_Tick(object sender, EventArgs e)
         {
-            PingPongBall.Move();
+            PingPongBall.Move(GamePaddle);
             PingPongBall.Draw(GameArea);
             DetectCollision();
         }

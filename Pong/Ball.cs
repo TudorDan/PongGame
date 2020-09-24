@@ -49,13 +49,23 @@ namespace Pong
             Canvas.SetLeft(rect, Position.X);
         }
 
-        public void Move()
+        public void Move(Paddle GamePaddle)
         {
+            double offSet = 0;
+            if (GamePaddle.Position.X <= Position.X && Position.X <= GamePaddle.Position.X + GamePaddle.Width
+                && GamePaddle.Position.Y <= Position.Y + Size)
+            {
+                offSet = Position.Y + Size + speedY;
+                if(offSet > GamePaddle.Position.Y)
+                {
+                    offSet = offSet - GamePaddle.Position.Y + 1;
+                }
+            }
             double nextX = Position.X;
             double nextY = Position.Y;
-            Position = new Point(nextX += speedX, nextY += speedY);
+            Position = new Point(nextX + speedX, nextY + speedY - offSet);
         }
 
-        
+
     }
 }
