@@ -17,7 +17,7 @@ namespace Pong
         private static Paddle instance = null;
         public Point Position { get; set; }
         public double Width { get; } = 150;
-        private double Height { get; } = 30;
+        private double Height { get; } = 60;
         public PaddleDirection Direction { get; set; }
 
 
@@ -51,7 +51,7 @@ namespace Pong
                 Name = "paddle",
                 Fill = new ImageBrush
                 {
-                    ImageSource = new BitmapImage(new Uri(@"C:\Users\antoaneta\Downloads\CodeCool\advancedCSharp\1st_TW\c-sharp-pingpong-fireuponthedepth\Pong\paddle.png", UriKind.Absolute))
+                    ImageSource = new BitmapImage(new Uri(@"C:\Users\antoaneta\Downloads\CodeCool\advancedCSharp\1st_TW\c-sharp-pingpong-fireuponthedepth\Pong\spaceship.png", UriKind.Absolute))
                 }
             };
             canvas.Children.Add(rect);

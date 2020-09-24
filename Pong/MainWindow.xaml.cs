@@ -61,10 +61,13 @@ namespace Pong
             }
         }
 
-        private void playground_ContentRendered(object sender, EventArgs e)
+        private void Playground_ContentRendered(object sender, EventArgs e)
         {
-            Background = new SolidColorBrush(Colors.Gray);
-
+            //Background = new SolidColorBrush(Colors.Gray);
+            Background = new ImageBrush
+            {
+                ImageSource = new BitmapImage(new Uri(@"C:\Users\antoaneta\Downloads\CodeCool\advancedCSharp\1st_TW\c-sharp-pingpong-fireuponthedepth\Pong\earthBakgr.jpg", UriKind.Absolute))
+            };
             
             GamePaddle.Draw(GameArea);
             PingPongBall.Draw(GameArea);
@@ -79,11 +82,6 @@ namespace Pong
             gameTicker.IsEnabled = true;
         }
 
-        
-        //private void playground_Loaded(object sender, RoutedEventArgs e)
-        //{
-        //    DispatcherTimer dispatcherTimer = new DispatcherTimer();
-        //    dispatcherTimer.IsEnabled = true;
-        //}
+ 
     }
 }
