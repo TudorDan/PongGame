@@ -21,6 +21,7 @@ namespace Pong
         private DispatcherTimer gameTicker = new DispatcherTimer();
         private Random rnd = new Random();
         private static int currentScore = 0;
+        private static int lives = 3;
 
         public MainWindow()
         {
@@ -122,7 +123,10 @@ namespace Pong
                 PingPongBall.Position = new Point(x, y);
 
                 PingPongBall.speedX = rnd.NextDouble() * 5 + 1;
-                PingPongBall.speedY = rnd.NextDouble() * 5 + 1; 
+                PingPongBall.speedY = rnd.NextDouble() * 5 + 1;
+
+                lives--;
+                this.tbStatusLives.Text = lives.ToString();
             }
 
             // check end game
@@ -136,7 +140,13 @@ namespace Pong
                 gameTicker.IsEnabled = false;
                 MessageBoxResult responseEnd = MessageBox.Show($"Congratulations! Your you reached {currentScore} points!", "GAME FINISHED!!");
                 this.Close();
-            } 
+            }
+            else if (lives <= 0)
+            {
+                gameTicker.IsEnabled = false;
+                MessageBoxResult responseEnd = MessageBox.Show($"No lives left! Your you reached {currentScore} points!", "GAME FINISHED!!");
+                this.Close();
+            }
         }
 
         private void UpdateGameStatus()

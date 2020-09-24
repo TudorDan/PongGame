@@ -27,9 +27,13 @@
                 <TextBlock>Score:</TextBlock>
                 <TextBlock Name="tbStatusScore">0</TextBlock>
             </WrapPanel>
-            <WrapPanel Grid.Column="1">
+            <WrapPanel Grid.Column="1" Margin="20,0,0,0">
                 <TextBlock>Level:</TextBlock>
-                <TextBlock Name="tbStatusLevel">0</TextBlock>
+                <TextBlock Name="tbStatusLevel">Basic</TextBlock>
+            </WrapPanel>
+            <WrapPanel Grid.Column="2" Margin="20,0,0,0">
+                <TextBlock>Lives:</TextBlock>
+                <TextBlock Name="tbStatusLives">3</TextBlock>
             </WrapPanel>
         </Grid>
     </Canvas>
