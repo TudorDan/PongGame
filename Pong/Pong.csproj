@@ -59,6 +59,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Speeder.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -102,32 +103,40 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="paddle.png" />
-    <Resource Include="pingPaddle.png" />
+    <Resource Include="Assets\Images\paddle.png" />
+    <Resource Include="Assets\Images\pingPaddle.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="earthBakgr.jpg" />
+    <Resource Include="Assets\Images\earthBakgr.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="spaceCraft.png" />
+    <Resource Include="Assets\Images\spaceCraft.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="spaceship.png" />
+    <Resource Include="Assets\Images\spaceship.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ball.png" />
+    <Resource Include="Assets\Images\ball.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="BlackHole.png" />
+    <Resource Include="Assets\Images\BlackHole.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Satellite.png" />
+    <Resource Include="Assets\Images\Satellite.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="NeutronStar.png" />
+    <Resource Include="Assets\Images\NeutronStar.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Meteorite.png" />
+    <Resource Include="Assets\Images\Meteorite.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Sounds\laser.mp3" />
+    <Content Include="Assets\Sounds\ricochet.mp3" />
+    <Content Include="Assets\Sounds\Ship.mp3" />
+    <Content Include="Assets\Sounds\spaceShipEngine.mp3" />
+    <Content Include="Assets\Sounds\splash.mp3" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

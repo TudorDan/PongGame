@@ -8,6 +8,7 @@ using System.Windows.Shapes;
 using System.Windows.Media.Imaging;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
+using System.Timers;
 
 namespace Pong
 {
@@ -27,7 +28,7 @@ namespace Pong
         {
             InitializeComponent();
 
-            GamePaddle = Paddle.getInstance(GameArea);
+            //GamePaddle = Paddle.getInstance(GameArea);
             PingPongBall = Ball.getInstance();
 
             gameTicker.Tick += GameTicker_Tick;
@@ -74,12 +75,11 @@ namespace Pong
 
         private void Playground_ContentRendered(object sender, EventArgs e)
         {
-            //Background = new SolidColorBrush(Colors.Gray);
             Background = new ImageBrush
             {
-                ImageSource = new BitmapImage(new Uri(@"C:\Users\antoaneta\Downloads\CodeCool\advancedCSharp\1st_TW\c-sharp-pingpong-fireuponthedepth\Pong\earthBakgr.jpg", UriKind.Absolute))
+                ImageSource = new BitmapImage(new Uri(@"C:\Users\antoaneta\Downloads\CodeCool\advancedCSharp\1st_TW\c-sharp-pingpong-fireuponthedepth\Pong\Assets\Images\earthBakgr.jpg", UriKind.Absolute))
             };
-            
+            GamePaddle = Paddle.getInstance(GameArea);
             GamePaddle.Draw(GameArea);
             PingPongBall.Draw(GameArea);
 
@@ -103,17 +103,23 @@ namespace Pong
             if (PingPongBall.Position.X <= 0 || PingPongBall.Position.X + PingPongBall.Size >= GameArea.ActualWidth)
             {
                 PingPongBall.speedX = -PingPongBall.speedX;
+
+                PlaySoundRicoChet();
             }
             //top
             if (PingPongBall.Position.Y <= 0)
             {
                 PingPongBall.speedY = -PingPongBall.speedY;
+
+                PlaySoundRicoChet();
             }
             // paddle
             if (GamePaddle.Position.X <= PingPongBall.Position.X && PingPongBall.Position.X <= GamePaddle.Position.X + GamePaddle.Width
                 && GamePaddle.Position.Y <= PingPongBall.Position.Y + PingPongBall.Size)
             {
                 PingPongBall.speedY = -PingPongBall.speedY;
+
+                PlaySoundRicoChet();
 
                 // update score
                 currentScore++;
@@ -126,8 +132,10 @@ namespace Pong
                 double y = rnd.NextDouble() * (GameArea.ActualHeight / 2);
                 PingPongBall.Position = new Point(x, y);
 
-                //PingPongBall.speedX = rnd.NextDouble() * 5 + 1;
-                //PingPongBall.speedY = rnd.NextDouble() * 5 + 1;
+                PingPongBall.speedX = rnd.NextDouble() * 5 + 1;
+                PingPongBall.speedY = rnd.NextDouble() * 5 + 1;
+
+                PlaySoundSplash();
 
                 lives--;
                 this.tbStatusLives.Text = lives.ToString();
@@ -137,9 +145,25 @@ namespace Pong
             EndGame();
         }
 
+        private void PlaySoundSplash()
+        {
+            Uri uri = new Uri(@"C:\Users\antoaneta\Downloads\CodeCool\advancedCSharp\1st_TW\c-sharp-pingpong-fireuponthedepth\Pong\Assets\Sounds\splash.mp3");
+            var player = new MediaPlayer();
+            player.Open(uri);
+            player.Play();
+        }
+
+        private void PlaySoundRicoChet()
+        {
+            Uri uri = new Uri(@"C:\Users\antoaneta\Downloads\CodeCool\advancedCSharp\1st_TW\c-sharp-pingpong-fireuponthedepth\Pong\Assets\Sounds\laser.mp3");
+            var player = new MediaPlayer();
+            player.Open(uri);
+            player.Play();
+        }
+
         private void EndGame()
         {
-            if (currentScore >= 5)
+            if (currentScore >= 11)
             {
                 gameTicker.IsEnabled = false;
                 MessageBoxResult responseEnd = MessageBox.Show($"Congratulations! Your you reached {currentScore} points!", "GAME FINISHED!!");
@@ -162,18 +186,60 @@ namespace Pong
         {
             // Start GAME
             StartNewGame(5, -5);
+            this.tbStatusLevel.Text = "Basic";
         }
 
         private void intermediate_Click(object sender, RoutedEventArgs e)
         {
             // Start GAME
             StartNewGame(7, -7);
+            this.tbStatusLevel.Text = "Intermediate";
         }
 
         private void hard_Click(object sender, RoutedEventArgs e)
         {
             // Start GAME
-            StartNewGame(10, -10);
+            StartNewGame(9, -9);
+            this.tbStatusLevel.Text = "Hard";
+
+            GamePaddle.PaddleSpeed += 15;
+
+            // increase ball speed every 5 seconds
+            Timer myTimer = new Timer();
+            myTimer.Elapsed += new ElapsedEventHandler(DisplayTimeEvent);
+            myTimer.Interval = 5000; // 1000 ms is one second
+            myTimer.Start();
+        }
+
+        private void DisplayTimeEvent(object sender, ElapsedEventArgs e)
+        {
+            if (PingPongBall.speedX > 0)
+            {
+                PingPongBall.speedX += 1;
+            } 
+            else
+            {
+                PingPongBall.speedX -= 1;
+            }
+
+            if (PingPongBall.speedY > 0)
+            {
+                PingPongBall.speedY += 1;
+            }
+            else
+            {
+                PingPongBall.speedY -= 1;
+            }
+        }
+
+        private void GameArea_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            GamePaddle = Paddle.getInstance(GameArea);
+            double paddleX = (GameArea.ActualWidth / 2) - (GamePaddle.Width / 2);
+            double paddleY = GameArea.ActualHeight - 10 - GamePaddle.Height;
+            GamePaddle.Position = new Point(paddleX, paddleY);
+
+            GamePaddle.Draw(GameArea);
         }
     }
 }

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -14,11 +11,11 @@ namespace Pong
     public enum PaddleDirection { Left, Right };
     public class Paddle
     {
-        public static double paddleSpeed = 15;
+        public double PaddleSpeed { get; set; } = 15;
         private static Paddle instance = null;
         public Point Position { get; set; }
         public double Width { get; } = 150;
-        private double Height { get; } = 60;
+        public double Height { get; } = 60;
         public PaddleDirection Direction { get; set; }
 
 
@@ -52,7 +49,7 @@ namespace Pong
                 Name = "paddle",
                 Fill = new ImageBrush
                 {
-                    ImageSource = new BitmapImage(new Uri(@"C:\Users\antoaneta\Downloads\CodeCool\advancedCSharp\1st_TW\c-sharp-pingpong-fireuponthedepth\Pong\spaceship.png", UriKind.Absolute))
+                    ImageSource = new BitmapImage(new Uri(@"C:\Users\antoaneta\Downloads\CodeCool\advancedCSharp\1st_TW\c-sharp-pingpong-fireuponthedepth\Pong\Assets\Images\spaceship.png", UriKind.Absolute))
                 }
             };
             canvas.Children.Add(rect);
@@ -67,12 +64,22 @@ namespace Pong
             switch (Direction)
             {
                 case PaddleDirection.Left:
-                    Position = new Point(nextX -= paddleSpeed, canvasY - paddleSpeed - Height);
+                    Position = new Point(nextX -= PaddleSpeed, canvasY - PaddleSpeed - Height);
+                    PlaySound();
                     break;
                 case PaddleDirection.Right:
-                    Position = new Point(nextX += paddleSpeed, canvasY - paddleSpeed - Height);
+                    Position = new Point(nextX += PaddleSpeed, canvasY - PaddleSpeed - Height);
+                    PlaySound();
                     break;
             }
+        }
+
+        private void PlaySound()
+        {
+            Uri uri = new Uri(@"C:\Users\antoaneta\Downloads\CodeCool\advancedCSharp\1st_TW\c-sharp-pingpong-fireuponthedepth\Pong\Assets\Sounds\Ship.mp3");
+            var player = new MediaPlayer();
+            player.Open(uri);
+            player.Play();
         }
     }
 }

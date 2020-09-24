@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Pong"
         mc:Ignorable="d"
         Title="Ping Pong Game" Height="450" Width="800" KeyDown="Window_KeyDown" ContentRendered="Playground_ContentRendered" FontFamily="Papyrus" FontWeight="Bold" FontSize="16">
-    <Canvas x:Name="GameArea" ClipToBounds="True">
+    <Canvas x:Name="GameArea" ClipToBounds="True" SizeChanged="GameArea_SizeChanged">
         <Grid DockPanel.Dock="Top" Name="pnlTitleBar">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
