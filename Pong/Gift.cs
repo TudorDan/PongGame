@@ -17,7 +17,7 @@ namespace Pong
         public double speedY;
         public double Size { get; } = 40;
         public Point Position { get; set; }
-        private Random rnd = new Random();
+        private Random rnd = new Random(); // TO DO: search for alternatives!
         public GiftType Type;
 
         public Gift(Canvas canvas)
@@ -37,21 +37,21 @@ namespace Pong
                 var foundPreviousImage = canvas.Children.OfType<Rectangle>().Single(c => c.Name == "gift");
                 canvas.Children.Remove(foundPreviousImage);
             }
-
+            
             ImageSource image = null;
             switch (Type)
             {
                 case (GiftType.Speeder):
-                    image = new BitmapImage(new Uri(@"C:\Users\antoaneta\Downloads\CodeCool\advancedCSharp\1st_TW\c-sharp-pingpong-fireuponthedepth\Pong\Assets\Images\Meterite.png", UriKind.Absolute));
+                    image = new BitmapImage(new Uri(System.IO.Path.GetFullPath("Assets/Images/Meteorite.png"), UriKind.Absolute));
                     break;
                 case (GiftType.Extender):
-                    image = new BitmapImage(new Uri(@"C:\Users\antoaneta\Downloads\CodeCool\advancedCSharp\1st_TW\c-sharp-pingpong-fireuponthedepth\Pong\Assets\Images\Satellite.png", UriKind.Absolute));
+                    image = new BitmapImage(new Uri(System.IO.Path.GetFullPath("Assets/Images/Satellite.png"), UriKind.Absolute));
                     break;
                 case (GiftType.Shortener):
-                    image = new BitmapImage(new Uri(@"C:\Users\antoaneta\Downloads\CodeCool\advancedCSharp\1st_TW\c-sharp-pingpong-fireuponthedepth\Pong\Assets\Images\NeutronStar.png", UriKind.Absolute));
+                    image = new BitmapImage(new Uri(System.IO.Path.GetFullPath("Assets/Images/NeutronStar.png"), UriKind.Absolute));
                     break;
                 case (GiftType.Slower):
-                    image = new BitmapImage(new Uri(@"C:\Users\antoaneta\Downloads\CodeCool\advancedCSharp\1st_TW\c-sharp-pingpong-fireuponthedepth\Pong\Assets\Images\BlackHole.png", UriKind.Absolute));
+                    image = new BitmapImage(new Uri(System.IO.Path.GetFullPath("Assets/Images/BlackHole.png"), UriKind.Absolute));
                     break;
             }
             Rectangle rect = new Rectangle

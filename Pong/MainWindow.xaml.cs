@@ -80,7 +80,7 @@ namespace Pong
         {
             Background = new ImageBrush
             {
-                ImageSource = new BitmapImage(new Uri(@"C:\Users\antoaneta\Downloads\CodeCool\advancedCSharp\1st_TW\c-sharp-pingpong-fireuponthedepth\Pong\Assets\Images\earthBakgr.jpg", UriKind.Absolute))
+                ImageSource = new BitmapImage(new Uri(System.IO.Path.GetFullPath("Assets/Images/earthBackgr.jpg"), UriKind.Absolute))
             };
             GamePaddle = Paddle.getInstance(GameArea);
             GamePaddle.Draw(GameArea);
@@ -100,11 +100,11 @@ namespace Pong
             gameTicker.IsEnabled = true;
 
             // add gem every 1 to 9 seconds
-            //Timer gemTimer = new Timer();
-            //gemTimer.Elapsed += new ElapsedEventHandler(DisplayGem);
-            //gemTimer.Interval = rnd.NextDouble() * 10000; // 1000 ms is one second
-            //gemTimer.Start();
-           
+            Timer gemTimer = new Timer();
+            gemTimer.Elapsed += new ElapsedEventHandler(DisplayGem);
+            gemTimer.Interval = rnd.NextDouble() * 10000; // 1000 ms is one second
+            gemTimer.Start();
+
         }
 
         public void DisplayGem(object sender, ElapsedEventArgs e)
@@ -244,7 +244,7 @@ namespace Pong
             if (PingPongBall.speedX > 0)
             {
                 PingPongBall.speedX += 1;
-            } 
+            }
             else
             {
                 PingPongBall.speedX -= 1;

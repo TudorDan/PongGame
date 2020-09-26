@@ -41,7 +41,7 @@ namespace Pong
                 Name = "ball",
                 Fill = new ImageBrush
                 {
-                    ImageSource = new BitmapImage(new Uri(@"C:\Users\antoaneta\Downloads\CodeCool\advancedCSharp\1st_TW\c-sharp-pingpong-fireuponthedepth\Pong\Assets\Images\ball.png", UriKind.Absolute))
+                    ImageSource = new BitmapImage(new Uri(System.IO.Path.GetFullPath("Assets/Images/ball.png"), UriKind.Absolute))
                 }
             };
             canvas.Children.Add(rect);
