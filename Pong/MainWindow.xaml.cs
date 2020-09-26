@@ -174,7 +174,7 @@ namespace Pong
 
         private void PlaySoundSplash()
         {
-            Uri uri = new Uri(@"C:\Users\antoaneta\Downloads\CodeCool\advancedCSharp\1st_TW\c-sharp-pingpong-fireuponthedepth\Pong\Assets\Sounds\splash.mp3");
+            Uri uri = new Uri(System.IO.Path.GetFullPath("Assets/Sounds/splash.mp3"), UriKind.Absolute);
             var player = new MediaPlayer();
             player.Open(uri);
             player.Play();
@@ -182,7 +182,7 @@ namespace Pong
 
         private void PlaySoundRicoChet()
         {
-            Uri uri = new Uri(@"C:\Users\antoaneta\Downloads\CodeCool\advancedCSharp\1st_TW\c-sharp-pingpong-fireuponthedepth\Pong\Assets\Sounds\laser.mp3");
+            Uri uri = new Uri(System.IO.Path.GetFullPath("Assets/Sounds/laser.mp3"), UriKind.Absolute);
             var player = new MediaPlayer();
             player.Open(uri);
             player.Play();

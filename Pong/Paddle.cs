@@ -76,7 +76,7 @@ namespace Pong
 
         private void PlaySound()
         {
-            Uri uri = new Uri(@"C:\Users\antoaneta\Downloads\CodeCool\advancedCSharp\1st_TW\c-sharp-pingpong-fireuponthedepth\Pong\Assets\Sounds\Ship.mp3");
+            Uri uri = new Uri(System.IO.Path.GetFullPath("Assets/Sounds/Ship.mp3"), UriKind.Absolute);
             var player = new MediaPlayer();
             player.Open(uri);
             player.Play();
