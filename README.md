@@ -10,6 +10,10 @@ After I am ready with my task I would like to play all day with a simple game. I
 
 ![vision](documentation/ping-pong-game.jpg)
 
+## The implementation
+
+![implementation](documentation/screenshotPong.jpg)
+
 ## Feature set
 
 * Application is started and stopped normally
