@@ -14,7 +14,6 @@ After I am ready with my task I would like to play all day with a simple game. I
 
 ![implementation](documentation/screenshotPong.png)
 
-
 ## Feature set
 
 * Application is started and stopped normally
