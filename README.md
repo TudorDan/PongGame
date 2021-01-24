@@ -4,7 +4,7 @@
 
 ## Description
 
-After I am ready with my task I would like to play all day with a simple game. I would like to have a ping pong game to play with my colleague to race.
+A team project derived from the classic game of Pong written in C# using Windows Presentation Foundation.
 
 ## The vision
 
@@ -23,6 +23,5 @@ After I am ready with my task I would like to play all day with a simple game. I
 * Score is shown after I am done/stopped
 * Score is visible contionusly
 * Levels are defined (harder)
-* Gifts can be reached
 * Level is visibled
 * Progress is shown in the level (procent)
